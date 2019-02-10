@@ -29,7 +29,11 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setAttribute("foo", "bar");
+	    String name = (String) request.getAttribute("userName");
+
+	    if (name == null || "".equals(name)) {
+	        request.setAttribute("userName", "Guest");
+	    }
 
 		String view = "/WEB-INF/view/index.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
@@ -42,6 +46,12 @@ public class HelloServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	    // formから値を取得
+		request.setCharacterEncoding("utf-8");
+
+		String name = request.getParameter("name");
+		request.setAttribute("userName", name);
+
 		doGet(request, response);
 	}
 
